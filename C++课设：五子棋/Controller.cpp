@@ -49,7 +49,7 @@ Chess_Pos ComputerPlayer::ChoosePos()
 void ComputerPlayer::NewScore()
 {
 	delete(ScoreBoard);
-	ScoreBoard = new int(MAX_BOARD_SIZE * MAX_BOARD_SIZE);
+	ScoreBoard = new int[MAX_BOARD_SIZE * MAX_BOARD_SIZE];
 }
 
 int ComputerPlayer::CalcScore(Chess_Pos Pos)
@@ -212,6 +212,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	/*∫·œÚ*/
 	for (count = 1, chessnum = 0, StuckNum = 0; count <= 4; count++)
 	{
+		temp.x = Pos.x;
 		temp.y = Pos.y + count;
 		if (Board->TestPlace(&temp) == CType)
 		{
@@ -228,6 +229,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	}
 	for (count = -1; count >= -4; count--)
 	{
+		temp.x = Pos.x;
 		temp.y = Pos.y + count;
 		if (Board->TestPlace(&temp) == CType)
 		{
@@ -245,6 +247,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	score += ShapeScore(chessnum, StuckNum, 1);
 	for (count = 1, chessnum = 0, StuckNum = 0; count <= 4; count++)
 	{
+		temp.x = Pos.x;
 		temp.y = Pos.y + count;
 		if (Board->TestPlace(&temp) != CType && Board->TestPlace(&temp) != NO_CHESS)
 		{
@@ -261,6 +264,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	}
 	for (count = -1; count >= -4; count--)
 	{
+		temp.x = Pos.x;
 		temp.y = Pos.y + count;
 		if (Board->TestPlace(&temp) != CType && Board->TestPlace(&temp) != NO_CHESS)
 		{
@@ -280,6 +284,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	for (count = 1, chessnum = 0, StuckNum = 0; count <= 4; count++)
 	{
 		temp.x = Pos.x + count;
+		temp.y = Pos.y;
 		if (Board->TestPlace(&temp) == CType)
 		{
 			chessnum++;
@@ -296,6 +301,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	for (count = -1; count >= -4; count--)
 	{
 		temp.x = Pos.x + count;
+		temp.y = Pos.y;
 		if (Board->TestPlace(&temp) == CType)
 		{
 			chessnum++;
@@ -313,6 +319,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	for (count = 1, chessnum = 0, StuckNum = 0; count <= 4; count++)
 	{
 		temp.x = Pos.x + count;
+		temp.y = Pos.y;
 		if (Board->TestPlace(&temp) != CType && Board->TestPlace(&temp) != NO_CHESS)
 		{
 			chessnum++;
@@ -329,6 +336,7 @@ int ComputerPlayer::CalcScore(Chess_Pos Pos)
 	for (count = -1; count >= -4; count--)
 	{
 		temp.x = Pos.x + count;
+		temp.y = Pos.y;
 		if (Board->TestPlace(&temp) != CType && Board->TestPlace(&temp) != NO_CHESS)
 		{
 			chessnum++;

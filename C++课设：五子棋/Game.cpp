@@ -2,7 +2,7 @@
 #include "Draw.h"
 #include "ClickTest.h"
 
-Game::Game(Controller* BCtrl, Controller* WCtrl, Checkerboard* Bd, PlayMode Mode)
+Game::Game(Controller* BCtrl, Controller* WCtrl, Checkerboard* Bd, PlayMode Mode, ComputerPlayer* CCtrl,ChessType CType)
 {
 	this->BlackCtrl = BCtrl;
 	BCtrl->ChangeChessType(BLACK_CHESS);
@@ -10,12 +10,18 @@ Game::Game(Controller* BCtrl, Controller* WCtrl, Checkerboard* Bd, PlayMode Mode
 	WCtrl->ChangeChessType(WHITE_CHESS);
 	this->Board = Bd;
 	this->Md = Mode;
+	if (CCtrl != NULL)
+	{
+		this->ComCtrl = CCtrl;
+		CCtrl->ChangeChessType(CType);
+	}
 }
 
 Game::Game()
 {
 	BlackCtrl = NULL;
 	WhiteCtrl = NULL;
+	ComCtrl = NULL;
 	Board = NULL;
 	Md = SINGLE;
 }
@@ -26,8 +32,6 @@ void Game::Start()
 	Win WinState = GO_ON;
 	/*点击对应坐标*/
 	Chess_Pos Pos;
-	/*电脑玩家类指针（如有必要）*/
-	ComputerPlayer* ComPlayer;
 	/*停止播放欢迎音乐*/
 	mciSendString(_T("close welcomeBGM"), 0, 0, 0);
 	mciSendString(_T("oepn .\\sound\\place_chess_succeed.wav alias place_succeed_sound"), 0, 0, 0);
@@ -60,7 +64,6 @@ void Game::Start()
 	{
 		if (BlackCtrl->GetType() == 1)//人类执黑
 		{
-			ComPlayer = (ComputerPlayer*)WhiteCtrl;
 			while (1)
 			{
 				//黑下棋
@@ -73,8 +76,8 @@ void Game::Start()
 					break;
 				}
 				//白下棋
-				Pos = ComPlayer->ChoosePos();
-				ComPlayer->Move(Pos);
+				Pos = ComCtrl->ChoosePos();
+				ComCtrl->Move(Pos);
 				WinState = JudgeGame(Pos);
 				RefreshBoard(GAME.Board);
 				if (WinState)
@@ -85,12 +88,11 @@ void Game::Start()
 		}
 		else //电脑执黑
 		{
-			ComPlayer = (ComputerPlayer*)BlackCtrl;
 			while (1)
 			{
 				//黑下棋
-				Pos=ComPlayer->ChoosePos();
-				ComPlayer->Move(Pos);
+				Pos=ComCtrl->ChoosePos();
+				ComCtrl->Move(Pos);
 				WinState = JudgeGame(Pos);
 				RefreshBoard(GAME.Board);
 				if (WinState)

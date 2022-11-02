@@ -12,7 +12,7 @@ void ShowWelcome()
 	initgraph(WINDOWS_WIDTH,WINDOWS_HEIGHT);
 	loadimage(Back, _T(".\\images\\Backing850_850.png"));
 	putimage(0, 0, Back, SRCCOPY);
-	mciSendString(_T("open .\\sound\\test.mp3 alias welcomeBGM"), 0, 0, 0);
+	mciSendString(_T("open .\\sound\\WelcomeBGM.mp3 alias welcomeBGM"), 0, 0, 0);
 	mciSendString(_T("play welcomeBGM"), 0, 0, 0);
 	setbkmode(TRANSPARENT);
 //	FlushBatchDraw();
@@ -167,6 +167,7 @@ void RefreshBoard(Checkerboard* Bd)
 	Bd->ReadChessImg(WImgPos, BImgPos);
 	IMAGE* BChess = new IMAGE;
 	IMAGE* WChess = new IMAGE;
+	Sleep(100);
 	loadimage(BChess, BImgPos, ChessSize, ChessSize, true);
 	loadimage(WChess, WImgPos, ChessSize, ChessSize, true);
 	setlinecolor(RGB(0, 0, 0));

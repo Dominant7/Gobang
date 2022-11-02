@@ -12,7 +12,7 @@ enum PlayMode { SINGLE, MULTI };
 class Game
 {
 public:
-	Game(Controller* BCtrl, Controller* WCtrl, Checkerboard* Bd, PlayMode Mode);
+	Game(Controller* BCtrl, Controller* WCtrl, Checkerboard* Bd, PlayMode Mode, ComputerPlayer* CCtrl = NULL, ChessType CType = WHITE_CHESS);
 	Game();
 	/*游戏开始*/
 	void Start();
@@ -30,6 +30,8 @@ private:
 	Controller* WhiteCtrl;
 	/*执黑棋者*/
 	Controller* BlackCtrl;
+	/*电脑棋手（如有必要）*/
+	ComputerPlayer* ComCtrl;
 	/*所用棋盘*/
 	Checkerboard* Board;
 	/*游玩模式*/

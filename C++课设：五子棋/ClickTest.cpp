@@ -36,11 +36,11 @@ void SinglePlay(Checkerboard* Bd)
 	HumanPlayer* HP = new HumanPlayer;
 	if (order == 0)
 	{
-		GAME = Game(HP, CP, Bd, SINGLE);
+		GAME = Game(HP, CP, Bd, SINGLE, CP, WHITE_CHESS);
 	}
 	else if (order == 1)
 	{
-		GAME = Game(CP, HP, Bd, SINGLE);
+		GAME = Game(CP, HP, Bd, SINGLE, CP, BLACK_CHESS);
 	}
 }
 
